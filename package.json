@@ -1,0 +1,15 @@
+{
+    "name": "leaflet-layercontrol",
+    "version": "0.0.1",
+    "description": "Toggle layer Control for Leaflet",
+    "main": "leaflet-layercontrol.js",
+    "repository": {
+       "type": "git",
+        "url": "git://github.com/keta/leaflet-layercontrol.git"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-uglify": "0.2.4",
+        "leaflet": "~0.7.0"
+    }
+}

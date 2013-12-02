@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Leaflet Toggle layer Control example</title>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"/>
+  <style type="text/css">
+    .leaflet-layercontrol.leaflet-layercontrol-off a {
+      color:#aaa;
+    }
+
+    .leaflet-layercontrol.leaflet-layercontrol-on a {
+      color:#222;
+    }
+
+    #map {
+      position:absolute;
+      top:120px;
+      bottom:5px;
+      left:5px;
+      right:5px;
+    }
+  </style>
+</head>
+<body>
+<h1>L.LayerControl</h1>
+
+<h2>Usage Example</h2>
+
+<div id="map"></div>
+
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet-src.js"></script>
+<script src="leaflet-layercontrol.js"></script>
+<script>
+  (function () {
+    var center = [ 45.033, 38.967 ];
+    var map = L.map("map", {
+      doubleClickZoom: false,
+      layers: [L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png")],
+      center: center,
+      zoom: 5
+    });
+
+    var openWeatherMap_CloudsControl = L.layerControl({
+      "html": "<i class=\"fa fa-cloud\"></i>",
+      "title": "Toggle Clouds layer",
+      "layer": L.tileLayer("http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png", {
+        "attribution": "Map data &copy; <a href=\"http://openweathermap.org\">OpenWeatherMap</a>",
+        "opacity": 0.5
+      })
+    });
+    openWeatherMap_CloudsControl.addTo(map);
+
+    var openWeatherMap_TemperatureControl = L.layerControl({
+      "html": "<i class=\"fa fa-tumblr\"></i>",
+      "title": "Toggle Temperature layer",
+      "show": true,
+      "layer": L.tileLayer("http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png", {
+        "attribution": "Map data &copy; <a href=\"http://openweathermap.org\">OpenWeatherMap</a>",
+        "opacity": 0.5
+      })
+    });
+    openWeatherMap_TemperatureControl.addTo(map);
+
+  })();
+</script>
+
+
+</body>
+</html>
