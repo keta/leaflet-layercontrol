@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Leaflet Toggle layer Control example</title>
+  <title>Leaflet toggle layer control example</title>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"/>
   <style type="text/css">
@@ -36,10 +36,9 @@
   (function () {
     var center = [ 45.033, 38.967 ];
     var map = L.map("map", {
-      doubleClickZoom: false,
-      layers: [L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png")],
-      center: center,
-      zoom: 5
+      "layers": [ L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png") ],
+      "center": center,
+      "zoom": 5
     });
 
     var openWeatherMap_CloudsControl = L.layerControl({
@@ -47,7 +46,8 @@
       "title": "Toggle Clouds layer",
       "layer": L.tileLayer("http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png", {
         "attribution": "Map data &copy; <a href=\"http://openweathermap.org\">OpenWeatherMap</a>",
-        "opacity": 0.5
+        "opacity": 0.5,
+        "zIndex": 11
       })
     });
     openWeatherMap_CloudsControl.addTo(map);
@@ -58,7 +58,8 @@
       "show": true,
       "layer": L.tileLayer("http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png", {
         "attribution": "Map data &copy; <a href=\"http://openweathermap.org\">OpenWeatherMap</a>",
-        "opacity": 0.5
+        "opacity": 0.5,
+        "zIndex": 10
       })
     });
     openWeatherMap_TemperatureControl.addTo(map);
