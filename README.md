@@ -1,7 +1,7 @@
 L.LayerControl
 ==============
 
-Basic button control to toggle particular layer.
+Basic Leaflet control to toggle particular layer.
 
 Check out the [example](http://keta.github.io/leaflet-layercontrol/example.html).
 
