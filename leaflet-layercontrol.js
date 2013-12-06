@@ -1,6 +1,6 @@
 /**
  * L.LayerControl
- * 0.1.1
+ * 0.1.2
  *
  * Toggle layer control for Leaflet
  * http://github.com/keta/leaflet-layercontrol
@@ -115,7 +115,9 @@
         toggleLayer: function (enable) {
             if (true === enable) {
                 return this.showLayer();
-            } else if ((false === enable) || this._map.hasLayer(this._layer)) {
+            } else if (false === enable) {
+                return !this.hideLayer();
+            } else if (this._map.hasLayer(this._layer)) {
                 return !this.hideLayer();
             } else {
                 return this.showLayer();
