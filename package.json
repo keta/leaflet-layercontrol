@@ -1,6 +1,6 @@
 {
     "name": "leaflet-layercontrol",
-    "version": "0.1",
+    "version": "0.1.1",
     "description": "Toggle layer Control for Leaflet",
     "main": "leaflet-layercontrol.js",
     "repository": {

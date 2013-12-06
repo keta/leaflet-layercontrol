@@ -1,6 +1,6 @@
 /**
  * L.LayerControl
- * 0.1
+ * 0.1.1
  *
  * Toggle layer control for Leaflet
  * http://github.com/keta/leaflet-layercontrol
@@ -16,10 +16,10 @@
     L.LayerControl = L.Control.extend({
         options: {
             "title": "Toggle layer",
-            "html": "",
+            "html": "✚",
             "onClassName": "on",
             "offClassName": "off",
-            "offOpacity": ".6",
+            "offOpacity": 0.6,
             "position": "topright",
             "show": false,
             "layer": null
@@ -40,16 +40,24 @@
             if (this.options.show) {
                 this.showLayer();
             }
-            return this._createButton();
+            return this._createButton(map);
         },
 
+        /**
+         * @param {L.Map} map
+         */
         onRemove: function (map) {
             if (this._layer) {
                 this.hideLayer();
             }
         },
 
-        _createButton: function () {
+        /**
+         * @param {L.Map} map
+         * @returns {HTMLDivElement}
+         * @private
+         */
+        _createButton: function (map) {
             // Copied from L.Control.Zoom
             var stop = L.DomEvent.stopPropagation;
             var container = L.DomUtil.create("div", "leaflet-bar leaflet-layercontrol");
@@ -60,7 +68,7 @@
             link.title = this.options.title;
             if (!this.options.show) {
                 L.DomUtil.setOpacity(content, this.options.offOpacity);
-                L.DomUtil.addClass(container, this._getClassName(false));
+                L.DomUtil.addClass(container, this.options.offClassName);
             }
             L.DomEvent
                 .on(link, "click", stop)
@@ -82,8 +90,8 @@
          * @private
          */
         _toggle: function (state) {
-            L.DomUtil.removeClass(this._container, this._getClassName(!state));
             L.DomUtil.addClass(this._container, this._getClassName(state));
+            L.DomUtil.removeClass(this._container, this._getClassName(!state));
             L.DomUtil.setOpacity(this._linkContent, state ? 1 : this.options.offOpacity);
         },
 
@@ -101,12 +109,13 @@
         },
 
         /**
-         *
          * @param {boolean} [enable]
          * @returns {boolean}
          */
         toggleLayer: function (enable) {
-            if ((false === enable) || this._map.hasLayer(this._layer)) {
+            if (true === enable) {
+                return this.showLayer();
+            } else if ((false === enable) || this._map.hasLayer(this._layer)) {
                 return !this.hideLayer();
             } else {
                 return this.showLayer();
