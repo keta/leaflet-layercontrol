@@ -1,6 +1,6 @@
 /**
  * L.LayerControl
- * 0.0.1
+ * 0.1
  *
  * Toggle layer control for Leaflet
  * http://github.com/keta/leaflet-layercontrol
@@ -17,8 +17,9 @@
         options: {
             "title": "Toggle layer",
             "html": "",
-            "switchedOnClass": "leaflet-layercontrol-on",
-            "switchedOffClass": "leaflet-layercontrol-off",
+            "onClassName": "on",
+            "offClassName": "off",
+            "offOpacity": ".6",
             "position": "topright",
             "show": false,
             "layer": null
@@ -51,32 +52,39 @@
         _createButton: function () {
             // Copied from L.Control.Zoom
             var stop = L.DomEvent.stopPropagation;
-            var container = L.DomUtil.create("div", "leaflet-bar leaflet-layercontrol " + this._getClassName(this.options.show));
+            var container = L.DomUtil.create("div", "leaflet-bar leaflet-layercontrol");
             var link = L.DomUtil.create("a", "", container);
-            link.innerHTML = this.options.html;
+            var content = L.DomUtil.create("span", "", link);
+            content.innerHTML = this.options.html;
             link.href = "#";
             link.title = this.options.title;
+            if (!this.options.show) {
+                L.DomUtil.setOpacity(content, this.options.offOpacity);
+                L.DomUtil.addClass(container, this._getClassName(false));
+            }
             L.DomEvent
                 .on(link, "click", stop)
                 .on(link, "mousedown", stop)
                 .on(link, "dblclick", stop)
                 .on(link, "click", L.DomEvent.preventDefault)
                 .on(link, "click", this.toggle, this);
+            this._linkContent = content;
             return container;
         },
 
         toggle: function () {
             var state = this.toggleLayer();
-            this._toggleClass(state);
+            this._toggle(state);
         },
 
         /**
          * @param {boolean} state
          * @private
          */
-        _toggleClass: function (state) {
+        _toggle: function (state) {
             L.DomUtil.removeClass(this._container, this._getClassName(!state));
             L.DomUtil.addClass(this._container, this._getClassName(state));
+            L.DomUtil.setOpacity(this._linkContent, state ? 1 : this.options.offOpacity);
         },
 
         /**
@@ -86,9 +94,9 @@
          */
         _getClassName: function (state) {
             if (state) {
-                return this.options.switchedOnClass;
+                return this.options.onClassName;
             } else {
-                return this.options.switchedOffClass
+                return this.options.offClassName;
             }
         },
 
@@ -98,7 +106,7 @@
          * @returns {boolean}
          */
         toggleLayer: function (enable) {
-            if ((enable === false) || this._map.hasLayer(this._layer)) {
+            if ((false === enable) || this._map.hasLayer(this._layer)) {
                 return !this.hideLayer();
             } else {
                 return this.showLayer();
@@ -130,4 +138,4 @@
         return new L.LayerControl(options);
     };
 
-})();
+}());

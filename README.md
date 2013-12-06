@@ -17,6 +17,7 @@ var layer = L.tileLayer("http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{
 });
 var control = L.layerControl({
   "layer": myLayer
+  "html": "❤"
 });
 control.addTo(map);
 ```
