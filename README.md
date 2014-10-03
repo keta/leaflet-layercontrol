@@ -3,7 +3,7 @@ L.LayerControl
 
 Basic Leaflet control to toggle particular layer.
 
-Check out the [example](http://keta.github.io/leaflet-layercontrol/example.html).
+Check out the [example](http://sashakavun.github.io/leaflet-layercontrol/example.html).
 
 Usage
 -----
